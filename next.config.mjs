@@ -4,6 +4,8 @@ const nextConfig = (phase) => {
 
     /** @type {import('next').NextConfig} */
     const nextConfigOptions = {
+        reactStrictMode: true,
+        poweredByHeader: false,
         experimental: {
             // experimental typescript "statically typed links"
             // https://nextjs.org/docs/app/api-reference/next-config-js/typedRoutes
@@ -17,4 +19,4 @@ const nextConfig = (phase) => {
 
 }
 
-export default nextConfig;
+export default nextConfig
