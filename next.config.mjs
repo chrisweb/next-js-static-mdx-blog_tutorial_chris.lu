@@ -31,16 +31,28 @@ const nextConfig = (phase) => {
 const securityHeadersConfig = (phase) => {
 
     const cspReportOnly = true
-
+	
     const reportingUrl = 'INSET_YOUR_SENTRY_REPORT_URI_HERE'
     const reportingDomainWildcard = 'https://*.ingest.us.sentry.io'
 
     const cspHeader = () => {
 
         const upgradeInsecure = (phase !== PHASE_DEVELOPMENT_SERVER && !cspReportOnly) ? 'upgrade-insecure-requests;' : ''
+		
+		// reporting uri (CSP v1)
+		const reportCSPViolations = `report-uri ${reportingUrl};`
 
-        // reporting uri (CSP v1)
-        const reportCSPViolations = `report-uri ${reportingUrl};`
+		// security headers for preview & production
+		const extraSecurityHeaders = []
+
+		if (phase !== PHASE_DEVELOPMENT_SERVER) {
+			extraSecurityHeaders.push(
+				{
+					key: 'Strict-Transport-Security',
+					value: 'max-age=31536000', // 1 year
+				},
+			)
+		}
 
         // worker-src is for sentry replay
         // child-src is because safari <= 15.4 does not support worker-src
@@ -72,7 +84,7 @@ const securityHeadersConfig = (phase) => {
                 connect-src 'self' https://vercel.live/ https://vitals.vercel-insights.com https://*.pusher.com/ wss://*.pusher.com/ ${reportingDomainWildcard};
                 img-src 'self' data: https://vercel.com/ https://vercel.live/;
                 frame-src 'self' https://vercel.live/;
-                ${reportCSPViolations}
+				${reportCSPViolations}
             `
         }
 
@@ -85,9 +97,9 @@ const securityHeadersConfig = (phase) => {
                 style-src 'self' 'unsafe-inline';
                 script-src 'self' 'unsafe-inline';
                 connect-src 'self' https://vitals.vercel-insights.com ${reportingDomainWildcard};
-                img-src 'self';
+                img-src 'self' data:;
                 frame-src 'none';
-                ${reportCSPViolations}
+				${reportCSPViolations}
             `
         }
 
@@ -105,10 +117,23 @@ const securityHeadersConfig = (phase) => {
     }
 
     const headers = [
-        {
-            key: cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy',
-            value: cspHeader().replace(/\n/g, ''),
-        },
+		...extraSecurityHeaders,
+		{
+			key: cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy',
+			value: cspHeader().replace(/\n/g, ''),
+		},
+		{
+			key: 'Referrer-Policy',
+			value: 'same-origin',
+		},
+		{
+			key: 'X-Content-Type-Options',
+			value: 'nosniff',
+		},
+		{
+			key: 'X-Frame-Options',
+			value: 'DENY'
+		},
     ]
 
     return headers
