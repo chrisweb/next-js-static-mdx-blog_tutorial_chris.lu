@@ -42,18 +42,6 @@ const securityHeadersConfig = (phase) => {
 		// reporting uri (CSP v1)
 		const reportCSPViolations = `report-uri ${reportingUrl};`
 
-		// security headers for preview & production
-		const extraSecurityHeaders = []
-
-		if (phase !== PHASE_DEVELOPMENT_SERVER) {
-			extraSecurityHeaders.push(
-				{
-					key: 'Strict-Transport-Security',
-					value: 'max-age=31536000', // 1 year
-				},
-			)
-		}
-
         // worker-src is for sentry replay
         // child-src is because safari <= 15.4 does not support worker-src
         const defaultCSPDirectives = `
@@ -114,6 +102,18 @@ const securityHeadersConfig = (phase) => {
             frame-src 'none';
         `
 
+    }
+
+    // security headers for preview & production
+    const extraSecurityHeaders = []
+
+    if (phase !== PHASE_DEVELOPMENT_SERVER) {
+        extraSecurityHeaders.push(
+            {
+                key: 'Strict-Transport-Security',
+                value: 'max-age=31536000', // 1 year
+            },
+        )
     }
 
     const headers = [
