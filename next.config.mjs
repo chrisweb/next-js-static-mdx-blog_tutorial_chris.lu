@@ -1,7 +1,17 @@
 import { withSentryConfig } from '@sentry/nextjs';
 import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js'
+import createMdx from '@next/mdx'
 
 const nextConfig = (phase) => {
+
+    const withMDX = createMdx({
+        extension: /\.mdx$/,
+        options: {
+            // optional remark and rehype plugins
+            remarkPlugins: [],
+            rehypePlugins: [],
+        },
+    })
 
     /** @type {import('next').NextConfig} */
     const nextConfigOptions = {
@@ -13,6 +23,10 @@ const nextConfig = (phase) => {
             // currently false in prod until PR #67824 lands in a stable release
             // https://github.com/vercel/next.js/pull/67824
             typedRoutes: phase === PHASE_DEVELOPMENT_SERVER ? true : false,
+            // use experimental rust compiler for MDX
+            // as of now (07.10.2023) there is no support for rehype & remark plugins
+            // this is why it is currently disabled
+            mdxRs: false,
         },
         headers: async () => {
             return [
@@ -22,9 +36,11 @@ const nextConfig = (phase) => {
                 },
             ];
         },
+        // configure `pageExtensions` to include MDX files
+        pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
     }
 
-    return nextConfigOptions
+    return withMDX(nextConfigOptions)
 
 }
 
