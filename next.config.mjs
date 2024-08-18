@@ -30,11 +30,17 @@ const nextConfig = (phase) => {
 
 const securityHeadersConfig = (phase) => {
 
-    const cspReportOnly = true;
+    const cspReportOnly = true
+
+    const reportingUrl = 'INSET_YOUR_SENTRY_REPORT_URI_HERE'
+    const reportingDomainWildcard = 'https://*.ingest.us.sentry.io'
 
     const cspHeader = () => {
 
         const upgradeInsecure = (phase !== PHASE_DEVELOPMENT_SERVER && !cspReportOnly) ? 'upgrade-insecure-requests;' : ''
+
+        // reporting uri (CSP v1)
+        const reportCSPViolations = `report-uri ${reportingUrl};`
 
         // worker-src is for sentry replay
         // child-src is because safari <= 15.4 does not support worker-src
@@ -63,9 +69,10 @@ const securityHeadersConfig = (phase) => {
                 font-src 'self' https://vercel.live/ https://assets.vercel.com https://fonts.gstatic.com;
                 style-src 'self' 'unsafe-inline' https://vercel.live/fonts;
                 script-src 'self' 'unsafe-inline' https://vercel.live/;
-                connect-src 'self' https://vercel.live/ https://vitals.vercel-insights.com https://*.pusher.com/ wss://*.pusher.com/;
+                connect-src 'self' https://vercel.live/ https://vitals.vercel-insights.com https://*.pusher.com/ wss://*.pusher.com/ ${reportingDomainWildcard};
                 img-src 'self' data: https://vercel.com/ https://vercel.live/;
                 frame-src 'self' https://vercel.live/;
+                ${reportCSPViolations}
             `
         }
 
@@ -77,9 +84,10 @@ const securityHeadersConfig = (phase) => {
                 font-src 'self';
                 style-src 'self' 'unsafe-inline';
                 script-src 'self' 'unsafe-inline';
-                connect-src 'self' https://vitals.vercel-insights.com;
+                connect-src 'self' https://vitals.vercel-insights.com ${reportingDomainWildcard};
                 img-src 'self';
                 frame-src 'none';
+                ${reportCSPViolations}
             `
         }
 
