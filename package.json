@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run lint && next build",
     "start": "next start",
-    "lint": "next lint"
+    "next-lint": "next lint",
+    "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx,.mdx,.md --cache --cache-location .next/cache/eslint",
+    "lint-nocache": "eslint ./ --ext .js,.jsx,.ts,.tsx,.mdx,.md",
+    "lint-debug": "eslint ./ --ext .js,.jsx,.ts,.tsx,.mdx,.md --debug",
+    "lint-fix": "eslint ./ --ext .js,.jsx,.ts,.tsx,.mdx,.md --fix"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
@@ -26,6 +30,10 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "eslint-plugin-mdx": "3.1.5",
+    "remark-lint": "10.0.0",
+    "remark-preset-lint-consistent": "6.0.0",
+    "remark-preset-lint-markdown-style-guide": "6.0.0",
+    "remark-preset-lint-recommended": "7.0.0",
     "typescript": "^5"
   }
 }

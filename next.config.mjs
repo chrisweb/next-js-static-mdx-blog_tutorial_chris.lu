@@ -38,6 +38,9 @@ const nextConfig = (phase) => {
         },
         // configure `pageExtensions` to include MDX files
         pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
+        eslint: {
+            ignoreDuringBuilds: true,
+        },
     }
 
     return withMDX(nextConfigOptions)
@@ -47,16 +50,16 @@ const nextConfig = (phase) => {
 const securityHeadersConfig = (phase) => {
 
     const cspReportOnly = true
-	
+
     const reportingUrl = 'INSET_YOUR_SENTRY_REPORT_URI_HERE'
     const reportingDomainWildcard = 'https://*.ingest.us.sentry.io'
 
     const cspHeader = () => {
 
         const upgradeInsecure = (phase !== PHASE_DEVELOPMENT_SERVER && !cspReportOnly) ? 'upgrade-insecure-requests;' : ''
-		
-		// reporting uri (CSP v1)
-		const reportCSPViolations = `report-uri ${reportingUrl};`
+
+        // reporting uri (CSP v1)
+        const reportCSPViolations = `report-uri ${reportingUrl};`
 
         // worker-src is for sentry replay
         // child-src is because safari <= 15.4 does not support worker-src
@@ -133,23 +136,23 @@ const securityHeadersConfig = (phase) => {
     }
 
     const headers = [
-		...extraSecurityHeaders,
-		{
-			key: cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy',
-			value: cspHeader().replace(/\n/g, ''),
-		},
-		{
-			key: 'Referrer-Policy',
-			value: 'same-origin',
-		},
-		{
-			key: 'X-Content-Type-Options',
-			value: 'nosniff',
-		},
-		{
-			key: 'X-Frame-Options',
-			value: 'DENY'
-		},
+        ...extraSecurityHeaders,
+        {
+            key: cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy',
+            value: cspHeader().replace(/\n/g, ''),
+        },
+        {
+            key: 'Referrer-Policy',
+            value: 'same-origin',
+        },
+        {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+        },
+        {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+        },
     ]
 
     return headers
