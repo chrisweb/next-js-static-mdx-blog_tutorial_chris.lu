@@ -17,7 +17,6 @@ export default function RootLayout({
             <body>
                 <header>
                     <HeaderNavigation />
-                    <p>{new Date().toString()}</p>
                 </header>
                 <main>{children}</main>
                 <footer>
