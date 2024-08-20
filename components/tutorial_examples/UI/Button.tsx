@@ -1,10 +1,28 @@
-import styles from './button.module.css'
+'use client'
  
-const UIButton: React.FC = (): JSX.Element => {
+import type { PropsWithChildren } from 'react'
+import type { Route } from 'next'
+import styles from './button.module.css'
+import { useRouter } from 'next/navigation'
+ 
+interface IProps extends PropsWithChildren {
+    url?: Route
+}
+ 
+const UIButton: React.FC<IProps> = (props): JSX.Element => {
+ 
+    const { url, children, ...rest } = props
+    const router = useRouter()
+ 
+    const clickHandler = () => {
+        if (url) {
+            router.push(url)
+        }
+    }
  
     return (
-        <button id={styles.myIdStyle} className={`${styles.reset} ${styles.core}`}>
-            I&apos;m a UI button
+        <button onClick={clickHandler} id={styles.myIdStyle} className={`${styles.reset} ${styles.core}`} {...rest}>
+            {children}
         </button>
     )
 }
