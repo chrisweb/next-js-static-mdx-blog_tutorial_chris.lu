@@ -1,18 +1,19 @@
 import Image from 'next/image'
-
+import PlaygroundTestImage from '/public/images/playground_test.jpg'
+ 
 <article>
-
+ 
 * foo
 * bar
-
+ 
 [internal link that has our production domain](https://example.com)
-
+ 
 [internal link starting with a slash](/internal)
-
+ 
 [internal link starting with a hash](#internal)
-
+ 
 [external link](https://google.com)
-
-<Image src="/images/playground_test.jpg" width="5398" height="3374" alt="Street at night, the wet floor has reflections of the bright lights from multiple billboards and neon signs, one prominent billboard features an advertisement for the TV series Stranger Things 2" />
-
+ 
+<Image src={PlaygroundTestImage} alt="Street at night, the wet floor has reflections of the bright lights from multiple billboards and neon signs, one prominent billboard features an advertisement for the TV series Stranger Things 2" />
+ 
 </article>
