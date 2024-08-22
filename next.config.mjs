@@ -42,6 +42,11 @@ const nextConfig = (phase) => {
         eslint: {
             ignoreDuringBuilds: true,
         },
+        images: {
+            // file formats for next/image
+            formats: ['image/avif', 'image/webp'],
+            deviceSizes: [384, 640, 750, 828, 1080, 1200, 1920, 2176, 3840],
+        },
     }
 
     return withMDX(nextConfigOptions)
