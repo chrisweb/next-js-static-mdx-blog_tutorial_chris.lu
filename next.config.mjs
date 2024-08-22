@@ -1,6 +1,7 @@
 import { withSentryConfig } from '@sentry/nextjs';
 import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js'
 import createMdx from '@next/mdx'
+import rehypeMDXImportMedia from 'rehype-mdx-import-media'
 
 const nextConfig = (phase) => {
 
@@ -9,7 +10,7 @@ const nextConfig = (phase) => {
         options: {
             // optional remark and rehype plugins
             remarkPlugins: [],
-            rehypePlugins: [],
+            rehypePlugins: [rehypeMDXImportMedia],
         },
     })
 
