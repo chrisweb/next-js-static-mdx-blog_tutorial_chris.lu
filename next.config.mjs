@@ -2,15 +2,21 @@ import { withSentryConfig } from '@sentry/nextjs';
 import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js'
 import createMdx from '@next/mdx'
 import rehypeMDXImportMedia from 'rehype-mdx-import-media'
+import rehypePrettyCode from 'rehype-pretty-code'
 
 const nextConfig = (phase) => {
+
+    /** @type {import('rehype-pretty-code').Options} */
+    const rehypePrettyCodeOptions = {
+        theme: 'dracula',
+    }
 
     const withMDX = createMdx({
         extension: /\.mdx$/,
         options: {
             // optional remark and rehype plugins
             remarkPlugins: [],
-            rehypePlugins: [rehypeMDXImportMedia],
+            rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions], rehypeMDXImportMedia],
         },
     })
 

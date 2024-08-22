@@ -17,10 +17,13 @@
     "@next/mdx": "14.2.5",
     "@sentry/nextjs": "^8.26.0",
     "@types/mdx": "2.0.13",
+    "material-theme": "github:Binaryify/OneDark-Pro",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "rehype-mdx-import-media": "1.2.0"
+    "rehype-mdx-import-media": "1.2.0",
+    "rehype-pretty-code": "0.13.2",
+    "shiki": "1.14.1"
   },
   "devDependencies": {
     "@types/node": "^20",
