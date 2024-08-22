@@ -3,12 +3,16 @@ import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js'
 import createMdx from '@next/mdx'
 import rehypeMDXImportMedia from 'rehype-mdx-import-media'
 import rehypePrettyCode from 'rehype-pretty-code'
+import { readFileSync } from 'fs'
 
 const nextConfig = (phase) => {
 
+    const themePath = new URL('./node_modules/material-theme/themes/OneDark-Pro.json', import.meta.url)
+    const themeFileContent = readFileSync(themePath, 'utf-8')
+
     /** @type {import('rehype-pretty-code').Options} */
     const rehypePrettyCodeOptions = {
-        theme: 'dracula',
+        theme: JSON.parse(themeFileContent),
     }
 
     const withMDX = createMdx({
