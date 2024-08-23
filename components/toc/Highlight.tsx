@@ -40,7 +40,7 @@ const TocHighlight: React.FC<IProps> = (props): JSX.Element => {
 
                     child = cloneElement(
                         child,
-                        recursiveChildren(children, activeIdState) as ReactElement<IChildProps>
+                        { children: recursiveChildren(children, activeIdState) as ReactElement<IChildProps> }
                     )
 
                 }
