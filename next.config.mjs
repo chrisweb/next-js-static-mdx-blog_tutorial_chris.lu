@@ -13,6 +13,11 @@ const nextConfig = (phase) => {
     /** @type {import('rehype-pretty-code').Options} */
     const rehypePrettyCodeOptions = {
         theme: JSON.parse(themeFileContent),
+        keepBackground: false,
+        defaultLang: {
+            block: 'js',
+            inline: 'js',
+        },
     }
 
     const withMDX = createMdx({
