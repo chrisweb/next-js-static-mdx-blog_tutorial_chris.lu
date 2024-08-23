@@ -15,3 +15,25 @@
 Every time code gets pushed into the main branch, it will trigger a production deployment
  
 When code gets pushed into the preview branch, it will trigger a preview deployment
+
+### Inline code token aliases
+
+This section contains a list of token aliases for inline code in Markdown (MDX) files.
+
+Tokens get added at the end of inline code markup.
+
+They start with a curly bracket, then a colon followed by a dot, the token alias, and then a closing curly bracket:
+
+```md
+some text `myVariable{:.token}`
+```
+
+Available token aliases:
+
+* fn: function
+* cmt: comment
+* str: string (between quotes)
+* var: variable
+* obj: object
+* prop: object property
+* int: integer

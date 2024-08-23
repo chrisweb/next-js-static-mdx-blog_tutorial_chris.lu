@@ -18,6 +18,15 @@ const nextConfig = (phase) => {
             block: 'js',
             inline: 'js',
         },
+        tokensMap: {
+            fn: 'entity.name.function',
+            cmt: 'comment',
+            str: 'string',
+            var: 'entity.name.variable',
+            obj: 'variable.other.object',
+            prop: 'meta.property.object',
+            int: 'constant.numeric',
+        },
     }
 
     const withMDX = createMdx({
