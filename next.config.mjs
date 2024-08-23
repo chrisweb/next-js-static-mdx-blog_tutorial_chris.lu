@@ -4,6 +4,7 @@ import createMdx from '@next/mdx'
 import rehypeMDXImportMedia from 'rehype-mdx-import-media'
 import rehypePrettyCode from 'rehype-pretty-code'
 import { readFileSync } from 'fs'
+import rehypeSlug from 'rehype-slug'
 
 const nextConfig = (phase) => {
 
@@ -34,7 +35,7 @@ const nextConfig = (phase) => {
         options: {
             // optional remark and rehype plugins
             remarkPlugins: [],
-            rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions], rehypeMDXImportMedia],
+            rehypePlugins: [rehypeSlug, [rehypePrettyCode, rehypePrettyCodeOptions], rehypeMDXImportMedia],
         },
     })
 
