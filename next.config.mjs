@@ -7,6 +7,7 @@ import { readFileSync } from 'fs'
 import rehypeSlug from 'rehype-slug'
 import { remarkTableOfContents } from 'remark-table-of-contents'
 import remarkGfm from 'remark-gfm'
+import { rehypeGithubAlerts } from 'rehype-github-alerts'
 
 const nextConfig = (phase) => {
 
@@ -53,7 +54,7 @@ const nextConfig = (phase) => {
         options: {
             // optional remark and rehype plugins
             remarkPlugins: [[remarkGfm, remarkGfmOptions], [remarkTableOfContents, remarkTableOfContentsOptions]],
-            rehypePlugins: [rehypeSlug, [rehypePrettyCode, rehypePrettyCodeOptions], rehypeMDXImportMedia],
+            rehypePlugins: [rehypeGithubAlerts, rehypeSlug, [rehypePrettyCode, rehypePrettyCodeOptions], rehypeMDXImportMedia],
             remarkRehypeOptions: {
                 footnoteLabel: 'Notes',
                 footnoteLabelTagName: 'span',
