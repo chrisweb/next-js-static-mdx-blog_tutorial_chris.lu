@@ -16,7 +16,7 @@ Every time code gets pushed into the main branch, it will trigger a production d
  
 When code gets pushed into the preview branch, it will trigger a preview deployment
 
-### Inline code token aliases
+## Inline code token aliases
 
 This section contains a list of token aliases for inline code in Markdown (MDX) files.
 
