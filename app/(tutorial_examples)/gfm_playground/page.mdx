@@ -1,11 +1,22 @@
-export async function generateMetadata(props, parent) {
-    const parentOpenGraph = (await parent).openGraph
-    return {
-        title: 'GFM playground page',
-        openGraph: {
-            ...parentOpenGraph,
-            url: 'https://example.com/tutorial_examples/gfm_playground'
-        }
+---
+title: GFM playground page
+keywords: ['gfm', 'playground', 'frontmatter', 'mdx']
+published: 2024-05-24T19:14:23.792Z
+modified: 2024-05-24T19:14:23.792Z
+permalink: http://localhost:3000/gfm_playground
+siteName: My website name
+---
+
+export const metadata = {
+    title: frontmatter.title,
+    keywords: frontmatter.keywords,
+    openGraph: {
+        url: frontmatter.permalink,
+        siteName: frontmatter.siteName,
+        type: 'article',
+        publishedTime: frontmatter.published,
+        modifiedTime: frontmatter.modified,
+        tags: frontmatter.keywords,
     }
 }
 

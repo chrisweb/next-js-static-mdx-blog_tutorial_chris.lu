@@ -8,6 +8,8 @@ import rehypeSlug from 'rehype-slug'
 import { remarkTableOfContents } from 'remark-table-of-contents'
 import remarkGfm from 'remark-gfm'
 import { rehypeGithubAlerts } from 'rehype-github-alerts'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 const nextConfig = (phase) => {
 
@@ -53,7 +55,7 @@ const nextConfig = (phase) => {
         extension: /\.mdx$/,
         options: {
             // optional remark and rehype plugins
-            remarkPlugins: [[remarkGfm, remarkGfmOptions], [remarkTableOfContents, remarkTableOfContentsOptions]],
+            remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, [remarkGfm, remarkGfmOptions], [remarkTableOfContents, remarkTableOfContentsOptions]],
             rehypePlugins: [rehypeGithubAlerts, rehypeSlug, [rehypePrettyCode, rehypePrettyCodeOptions], rehypeMDXImportMedia],
             remarkRehypeOptions: {
                 footnoteLabel: 'Notes',
