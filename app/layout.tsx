@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import HeaderNavigation from '@/components/header/Navigation'
 import { Kablammo } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata: Metadata = {
     title: {
@@ -41,6 +42,7 @@ export default function RootLayout({
                     <p>My Footer</p>
                 </footer>
                 <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     )
