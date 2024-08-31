@@ -6,6 +6,9 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata: Metadata = {
+    metadataBase: process.env.VERCEL_URL
+        ? new URL(`https://${process.env.VERCEL_URL}`)
+        : new URL(`http://localhost:${3000 ?? process.env.PORT}`),
     title: {
         template: '%s | example.com',
         default: 'Home | example.com',
