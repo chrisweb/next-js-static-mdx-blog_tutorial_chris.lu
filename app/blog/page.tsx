@@ -1,6 +1,7 @@
+import type { Metadata } from 'next'
 import { sharedMetadata } from '@/shared/metadata'
 
-export const metadata = {
+export const metadata: Metadata = {
     title: 'Blog page',
     openGraph: {
         ...sharedMetadata.openGraph,
